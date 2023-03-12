@@ -38,7 +38,7 @@ jobs:
 
           # docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
           # docker pull ghcr.io/my_github_username/my_repository_name/my_image_name:latest
-          sudo docker stop mahyarshabani-website
+          sudo docker stop mahyarshabani-website || true
           sudo docker system prune -f
-          sudo docker build -t mahyarshabani-website .
-          sudo docker run -dit -p 3000:3000 mahyarshabani-website
+          sudo docker build -t mahyarshabani-website-image .
+          sudo docker run -d --rm -p 3000:3000 --name mahyarshabani-website mahyarshabani-website-image
