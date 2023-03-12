@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Copy repo to server
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+      with:
+        source: "."
+        target: "/home/mahyarshabani-website/application"
+
+    - name: Executing remote command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+          ls /home/mahyarshabani-website/
+          cd /home/mahyarshabani-website/application
+
+          # docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+          # docker pull ghcr.io/my_github_username/my_repository_name/my_image_name:latest
+          sudo docker stop mahyarshabani-website
+          sudo docker system prune -f
+          sudo docker build -t mahyarshabani-website .
+          sudo docker run -dit -p 3000:3000 mahyarshabani-website
