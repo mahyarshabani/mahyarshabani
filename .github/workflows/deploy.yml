@@ -33,9 +33,9 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
+          sudo lsof -t -i:3000 | xargs kill -9
           ls /home/mahyarshabani-website/
           cd /home/mahyarshabani-website/application
-
           # docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
           # docker pull ghcr.io/my_github_username/my_repository_name/my_image_name:latest
           sudo docker stop mahyarshabani-website || true
