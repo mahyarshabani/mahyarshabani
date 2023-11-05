@@ -7,6 +7,6 @@ export default function Home() {
       <title>Mahyar Shabani</title>
       <meta name="robots" content="noindex,nofollow" />
     </Head>
-    <h1>Hello, My name is Mahyar Shabani. I am a senior Frontend engineer with 5 years of experience</h1>
+    <h1>Hello, My name is Mahyar Shabani. I am a Frontend engineer with 5 years of experience</h1>
   </div>
 }
