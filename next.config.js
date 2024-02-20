@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const cspHeader = `
-    default-src 'self';
-    frame-ancestors 'https://pol.qa.testifi.io';
+    frame-ancestors https://pol.qa.testifi.io;
 `;
 
 const nextConfig = {
